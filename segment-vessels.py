@@ -1,3 +1,6 @@
+# adapted by Nikolas Adalogou https://github.com/black0017/ct-intensity-segmentation
+# https://theaisummer.com/medical-image-python/
+import os
 import csv
 import glob
 
@@ -37,9 +40,12 @@ def create_vessel_mask(lung_mask, ct_numpy, denoise=False):
 
 
 for c, exam_path in enumerate(paths):
-    img_name = exam_path.split("/")[-1].split('.nii')[0]
+    #img_name = exam_path.split("/")[-1].split('.nii')[0]
+    img_name = os.path.basename(exam_path)
+    img_name = img_name.split('.nii')[0]
     vessel_name = vessels + img_name + "_vessel_only_mask"
     overlay_name = overlay_path + img_name + "_vessels"
+    print(vessel_name)
 
     ct_img = nib.load(exam_path)
     pixdim = find_pix_dim(ct_img)

@@ -1,3 +1,7 @@
+# adapted by Nikolas Adalogou https://github.com/black0017/ct-intensity-segmentation
+# https://theaisummer.com/medical-image-python/
+
+import os
 import glob
 import csv
 from utils import *
@@ -12,9 +16,11 @@ make_dirs(outpath)
 make_dirs(contour_path)
 
 for c, exam_path in enumerate(paths):
-    img_name = exam_path.split("/")[-1].split('.nii')[0]
+    img_name = os.path.basename(exam_path)
+    img_name = img_name.split('.nii')[0]
     out_mask_name = outpath + img_name + "_mask"
-    contour_name = contour_path + img_name + "_contour"
+    contour_name = contour_path + img_name + "_contour.jpg"
+    print(contour_name)
 
     ct_img = nib.load(exam_path)
     pixdim = find_pix_dim(ct_img)
